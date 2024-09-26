@@ -9,7 +9,7 @@ public class JsonProcessor : IJsonProcessor
     public Weather ProcessWeather(string data)
     {
         JsonDocument json = JsonDocument.Parse(data);
-        JsonElement coord = json.RootElement.GetProperty("coord");
+        JsonElement coord = json.RootElement[0];
 
         Weather weather = new Weather
         {
@@ -22,14 +22,36 @@ public class JsonProcessor : IJsonProcessor
 
     public SunriseSunset ProcessSunriseSunset(string data)
     {
-        JsonDocument json = JsonDocument.Parse(data);
-        JsonElement results = json.RootElement.GetProperty("results");
-
-        SunriseSunset sunriseSunset = new SunriseSunset
+        try
         {
-            Sunrise = results.GetProperty("sunrise").GetDateTime(),
-            Sunset = results.GetProperty("sunset").GetDateTime()
-        };
-        return sunriseSunset;
+            if (data.Length == 0)
+            {
+                throw new ArgumentException("Incorrect name");
+            }
+            JsonDocument json = JsonDocument.Parse(data);
+            JsonElement results = json.RootElement.GetProperty("results");
+
+            var sunrise = DateTime.Parse(results.GetProperty("sunrise").GetString()!, null, System.Globalization.DateTimeStyles.AssumeUniversal);
+            var sunset = DateTime.Parse(results.GetProperty("sunset").GetString()!, null, System.Globalization.DateTimeStyles.AssumeUniversal);
+
+
+            SunriseSunset sunriseSunset = new SunriseSunset
+            {
+                Sunrise = sunrise,
+                Sunset = sunset
+            };
+            return sunriseSunset;
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
+        catch (FormatException e)
+        {
+            Console.WriteLine("Error parsing the time: " + e.Message);
+            throw;
+        }
+
     }
 }

@@ -13,7 +13,7 @@ public class CurrentWeatherDataProvider : ICurrentWeatherDataProvider
         var url =
             $"http://api.openweathermap.org/geo/1.0/direct?q={cityName.Trim()}&appid=f1fb303fef54879412fc98f998d181b5";
 
-        using var client  =new HttpClient();
+        using var client = new HttpClient();
 
         _logger.LogInformation("Calling Geocoding API with url: {url}", url);
 
