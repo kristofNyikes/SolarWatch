@@ -32,6 +32,7 @@ public class JsonProcessor : IJsonProcessor
             JsonElement results = json.RootElement.GetProperty("results");
 
             var sunrise = DateTime.Parse(results.GetProperty("sunrise").GetString()!, null, System.Globalization.DateTimeStyles.AssumeUniversal);
+
             var sunset = DateTime.Parse(results.GetProperty("sunset").GetString()!, null, System.Globalization.DateTimeStyles.AssumeUniversal);
 
 

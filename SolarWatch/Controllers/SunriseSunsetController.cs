@@ -12,12 +12,14 @@ public class SunriseSunsetController : Controller
     private readonly IJsonProcessor _jsonProcessor;
     private readonly ICurrentWeatherDataProvider _currentWeatherDataProvider;
     private readonly ISunriseSunsetDataProvider _sunriseSunsetDataProvider;
+    private readonly ILogger<SunriseSunsetController> _logger;
 
-    public SunriseSunsetController(IJsonProcessor jsonProcessor, ICurrentWeatherDataProvider currentWeatherDataProvider, ISunriseSunsetDataProvider sunriseSunsetDataProvider)
+    public SunriseSunsetController(IJsonProcessor jsonProcessor, ICurrentWeatherDataProvider currentWeatherDataProvider, ISunriseSunsetDataProvider sunriseSunsetDataProvider, ILogger<SunriseSunsetController> logger)
     {
         _jsonProcessor = jsonProcessor;
         _currentWeatherDataProvider = currentWeatherDataProvider;
         _sunriseSunsetDataProvider = sunriseSunsetDataProvider;
+        _logger = logger;
     }
 
     [HttpGet("GetSunriseAndSunset")]
@@ -28,21 +30,15 @@ public class SunriseSunsetController : Controller
             var weather = await _currentWeatherDataProvider.GetCurrent(cityName);
             var weatherModel = _jsonProcessor.ProcessWeather(weather);
 
-            Console.WriteLine($"weatherModel.Latitude: {weatherModel.Latitude}");
-            Console.WriteLine($"weatherModel.Longitude: {weatherModel.Longitude}");
-
             var sunriseSunset = await _sunriseSunsetDataProvider.GetCurrent(weatherModel.Latitude, weatherModel.Longitude, date);
             var sunriseSunsetModel = _jsonProcessor.ProcessSunriseSunset(sunriseSunset);
-
-            Console.WriteLine($"sunriseSunsetModel.Sunrise: {sunriseSunsetModel.Sunrise}");
-            Console.WriteLine($"sunriseSunsetModel.Sunset: {sunriseSunsetModel.Sunset}");
 
             return Ok(sunriseSunsetModel);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
-            throw;
+            _logger.LogError(e.Message);
+            return NotFound("Error getting sunrise sunset data");
         }
     }
 }
