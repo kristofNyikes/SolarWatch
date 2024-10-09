@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarWatch", "SolarWatch\SolarWatch.csproj", "{C1EFBFEC-B734-4F9D-B843-382D82293F31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarWatchTest", "SolarWatchTest\SolarWatchTest.csproj", "{F6125ABE-07D3-496B-99D3-7073D39EDAD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarWatchTest", "SolarWatchTest\SolarWatchTest.csproj", "{F6125ABE-07D3-496B-99D3-7073D39EDAD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
