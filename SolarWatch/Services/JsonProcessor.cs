@@ -1,20 +1,22 @@
 ﻿using System.Text.Json;
-using SolarWatch.Models.CurrentWeather;
+using SolarWatch.Models.City;
 using SolarWatch.Models.SunriseSunset;
 
 namespace SolarWatch.Services;
 
 public class JsonProcessor : IJsonProcessor
 {
-    public Weather ProcessWeather(string data)
+    public City ProcessWeather(string data)
     {
         JsonDocument json = JsonDocument.Parse(data);
         JsonElement coord = json.RootElement[0];
 
-        Weather weather = new Weather
+        City weather = new City
         {
             Latitude = coord.GetProperty("lat").GetDouble(),
-            Longitude = coord.GetProperty("lon").GetDouble()
+            Longitude = coord.GetProperty("lon").GetDouble(),
+            Name = coord.GetProperty("name").GetString()!,
+            Country = coord.GetProperty("country").GetString()!
         };
 
         return weather;

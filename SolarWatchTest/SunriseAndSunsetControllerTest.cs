@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using SolarWatch.Controllers;
-using SolarWatch.Models.CurrentWeather;
+using SolarWatch.Models.City;
 using SolarWatch.Models.SunriseSunset;
 using SolarWatch.Services;
 
@@ -46,7 +46,7 @@ public class SunriseAndSunsetControllerTest
         var weatherData = "WeatherJson";
         var sunriseSunsetData = "SunriseSunsetJson";
 
-        var weatherModel = new Weather { Latitude = 10.0, Longitude = 20.0 };
+        var weatherModel = new City { Latitude = 10.0, Longitude = 20.0 };
         var sunriseSunsetModel = new SunriseSunset
         {
             Sunrise = DateTime.UtcNow,
