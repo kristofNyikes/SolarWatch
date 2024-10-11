@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using SolarWatch.Data;
 using SolarWatch.Services;
+using SolarWatch.Services.Repository;
 
 namespace SolarWatch;
 
@@ -28,6 +29,9 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddScoped<ICityRepository, CityRepository>();
+        builder.Services.AddScoped<ISunriseSunsetRepository, SunriseSunsetRepository>();
 
         var app = builder.Build();
 
