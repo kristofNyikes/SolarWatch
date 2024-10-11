@@ -1,6 +1,6 @@
-﻿namespace SolarWatch.Models.CurrentWeather;
+﻿namespace SolarWatch.Models.City;
 
-public class Weather
+public class City
 {
     public double Longitude { get; set; }
     public double Latitude { get; set; }
