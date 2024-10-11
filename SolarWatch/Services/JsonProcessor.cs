@@ -14,7 +14,9 @@ public class JsonProcessor : IJsonProcessor
         Weather weather = new Weather
         {
             Latitude = coord.GetProperty("lat").GetDouble(),
-            Longitude = coord.GetProperty("lon").GetDouble()
+            Longitude = coord.GetProperty("lon").GetDouble(),
+            Name = coord.GetProperty("name").GetString()!,
+            Country = coord.GetProperty("country").GetString()!
         };
 
         return weather;
