@@ -4,9 +4,9 @@ namespace SolarWatch.Services.Repository;
 
 public interface ICityRepository
 {
-    IEnumerable<City> GetAll();
-    City? GetByName(string name);
-    void Add(City city);
-    void Update(City city);
-    void Delete(City city);
+    Task<IEnumerable<City>> GetAllAsync();
+    Task<City> GetByNameAsync(string name);
+    Task AddAsync(City city);
+    Task UpdateAsync(City city);
+    Task DeleteAsync(City city);
 }

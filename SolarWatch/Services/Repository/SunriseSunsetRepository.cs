@@ -1,38 +1,42 @@
 ﻿using SolarWatch.Data;
 using SolarWatch.Models.SunriseSunset;
+using Microsoft.EntityFrameworkCore;
 
 namespace SolarWatch.Services.Repository;
 
 public class SunriseSunsetRepository : ISunriseSunsetRepository
 {
-    private SunriseSunsetWeatherApiContext _context;
+    private readonly SunriseSunsetWeatherApiContext _context;
 
     public SunriseSunsetRepository(SunriseSunsetWeatherApiContext context)
     {
         _context = context;
     }
 
-    public IEnumerable<SunriseSunset> GetAll()
+    public async Task<IEnumerable<SunriseSunset>> GetAllAsync()
     {
-        return _context.SunriseSunsets.ToList();
+        return await _context.SunriseSunsets.ToListAsync();
     }
 
-    public void Add(SunriseSunset sunriseSunset)
+    public async Task AddAsync(SunriseSunset sunriseSunset)
     {
-        _context.Add(sunriseSunset);
-        _context.SaveChanges();
+        await _context.AddAsync(sunriseSunset);
+        await _context.SaveChangesAsync();
     }
 
-    public void Update(SunriseSunset sunriseSunset)
+    public async Task UpdateAsync(SunriseSunset sunriseSunset)
     {
         _context.Update(sunriseSunset);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        var sunriseSunset = GetAll().FirstOrDefault(s => s.Id == id);
-        _context.Remove(sunriseSunset);
-        _context.SaveChanges();
+        var sunriseSunset = await _context.SunriseSunsets.FirstOrDefaultAsync(s => s.Id == id);
+        if (sunriseSunset != null)
+        {
+            _context.Remove(sunriseSunset);
+            await _context.SaveChangesAsync();
+        }
     }
 }
