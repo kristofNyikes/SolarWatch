@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using SolarWatch.Models.City;
 using SolarWatch.Models.SunriseSunset;
 using SolarWatch.Services;
 using SolarWatch.Services.Repository;
@@ -28,22 +29,56 @@ public class SunriseSunsetController : Controller
     }
 
     [HttpGet("GetSunriseAndSunset")]
-    public async Task<IActionResult> Get([Required]string cityName, DateTime date)
+    public async Task<IActionResult> Get([Required] string cityName, DateTime date)
     {
         try
         {
-            var weather = await _currentWeatherDataProvider.GetCurrent(cityName);
-            var weatherModel = _jsonProcessor.ProcessWeather(weather);
+            var city = await _cityRepository.GetByNameAsync(cityName);
+            if (city == null)
+            {
+                var weather = await _currentWeatherDataProvider.GetCurrent(cityName);
+                var weatherModel = _jsonProcessor.ProcessWeather(weather);
 
-            var sunriseSunset = await _sunriseSunsetDataProvider.GetCurrent(weatherModel.Latitude, weatherModel.Longitude, date);
-            var sunriseSunsetModel = _jsonProcessor.ProcessSunriseSunset(sunriseSunset);
+                city = new City
+                {
+                    Name = cityName,
+                    Latitude = weatherModel.Latitude,
+                    Longitude = weatherModel.Longitude,
+                    Country = weatherModel.Country
+                };
 
-            return Ok(sunriseSunsetModel);
+                await _cityRepository.AddAsync(city);
+            }
+
+            var sunriseSunsetList = await _sunriseSunsetRepository.GetAllAsync();
+
+            var sunriseSunset = sunriseSunsetList
+                .FirstOrDefault(s => s.CityId == city.Id && s.Sunrise.Date == date.Date);
+
+            if (sunriseSunset == null)
+            {
+                var externalSunriseSunset = await _sunriseSunsetDataProvider
+                    .GetCurrent(city.Latitude, city.Longitude, date);
+
+                var sunriseSunsetModel = _jsonProcessor
+                    .ProcessSunriseSunset(externalSunriseSunset);
+
+                sunriseSunset = new SunriseSunset
+                {
+                    CityId = city.Id,
+                    Sunrise = sunriseSunsetModel.Sunrise,
+                    Sunset = sunriseSunsetModel.Sunset
+                };
+
+                await _sunriseSunsetRepository.AddAsync(sunriseSunset);
+            }
+
+            return Ok(sunriseSunset);
         }
         catch (Exception e)
         {
-            _logger.LogError(e.Message);
-            return NotFound("Error getting sunrise sunset data");
+            _logger.LogError(e, "Error getting sunrise/sunset data for city: {CityName}", cityName);
+            return NotFound("Error getting sunrise/sunset data");
         }
     }
 }

@@ -17,6 +17,13 @@ public class Program
 
         builder.Services.AddControllers();
 
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.WriteIndented = true; // Optional for better readability
+            });
+
         builder.Services.AddScoped<IJsonProcessor, JsonProcessor>();
         builder.Services.AddScoped<ICurrentWeatherDataProvider, CurrentWeatherDataProvider>();
         builder.Services.AddScoped<ISunriseSunsetDataProvider, SunriseSunsetDataProvider>();
