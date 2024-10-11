@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using SolarWatch.Data;
 using SolarWatch.Services;
+using SolarWatch.Services.Repository;
 
 namespace SolarWatch;
 
@@ -16,6 +17,13 @@ public class Program
 
         builder.Services.AddControllers();
 
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.WriteIndented = true; // Optional for better readability
+            });
+
         builder.Services.AddScoped<IJsonProcessor, JsonProcessor>();
         builder.Services.AddScoped<ICurrentWeatherDataProvider, CurrentWeatherDataProvider>();
         builder.Services.AddScoped<ISunriseSunsetDataProvider, SunriseSunsetDataProvider>();
@@ -28,6 +36,9 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddScoped<ICityRepository, CityRepository>();
+        builder.Services.AddScoped<ISunriseSunsetRepository, SunriseSunsetRepository>();
 
         var app = builder.Build();
 

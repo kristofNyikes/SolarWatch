@@ -4,8 +4,8 @@ namespace SolarWatch.Services.Repository;
 
 public interface ISunriseSunsetRepository
 {
-    IEnumerable<SunriseSunset> GetAll();
-    void Add(SunriseSunset sunriseSunset);
-    void Update(SunriseSunset sunriseSunset);
-    void Delete(int id);
+    Task<IEnumerable<SunriseSunset>> GetAllAsync();
+    Task AddAsync(SunriseSunset sunriseSunset);
+    Task UpdateAsync(SunriseSunset sunriseSunset);
+    Task DeleteAsync(int id);
 }

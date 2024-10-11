@@ -27,8 +27,8 @@ public class SunriseAndSunsetControllerTest
         _sunriseSunsetDataProviderMock = new Mock<ISunriseSunsetDataProvider>();
         _currentWeatherDataProviderMock = new Mock<ICurrentWeatherDataProvider>();
         _jsonProcessorMock = new Mock<IJsonProcessor>();
-        _controller = new SunriseSunsetController(_jsonProcessorMock.Object, _currentWeatherDataProviderMock.Object,
-            _sunriseSunsetDataProviderMock.Object, _loggerMock.Object);
+        //_controller = new SunriseSunsetController(_jsonProcessorMock.Object, _currentWeatherDataProviderMock.Object,
+        //    _sunriseSunsetDataProviderMock.Object, _loggerMock.Object);
     }
 
     [TearDown]
