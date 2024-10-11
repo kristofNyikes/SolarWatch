@@ -1,4 +1,7 @@
 
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.EntityFrameworkCore;
+using SolarWatch.Data;
 using SolarWatch.Services;
 
 namespace SolarWatch;
@@ -16,6 +19,11 @@ public class Program
         builder.Services.AddScoped<IJsonProcessor, JsonProcessor>();
         builder.Services.AddScoped<ICurrentWeatherDataProvider, CurrentWeatherDataProvider>();
         builder.Services.AddScoped<ISunriseSunsetDataProvider, SunriseSunsetDataProvider>();
+        builder.Services.AddDbContext<SunriseSunsetWeatherApiContext>(options =>
+        {
+            options.UseSqlServer(
+                "Server = localhost,1433; Database = WeatherApi; User Id = sa; Password = strongSolarWatchPassword123; Encrypt = false; ");
+        });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
