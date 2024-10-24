@@ -18,6 +18,11 @@ public class CityRepository : ICityRepository
         return await _context.Cities.ToListAsync();
     }
 
+    public async Task<IEnumerable<City>> GetAllWithSunriseSunsetAsync()
+    {
+        return await _context.Cities.Include(c => c.SunriseSunsets).ToListAsync();
+    }
+
     public async Task<City?> GetByNameAsync(string name)
     {
         return await _context.Cities.FirstOrDefaultAsync(c => c.Name == name);

@@ -83,15 +83,4 @@ public class SunriseSunsetController : Controller
             return NotFound("Error getting sunrise/sunset data");
         }
     }
-
-    [HttpGet("Cities")]
-    public async Task<IActionResult> GetAllCities()
-    {
-        var cities = await _cityRepository.GetAllAsync();
-        foreach (var city in cities)
-        {
-            Console.WriteLine(city.Name);
-        }
-        return Ok(cities);
-    }
 }
