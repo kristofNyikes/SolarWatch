@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using SolarWatch.Contracts;
 using SolarWatch.Models.City;
 using SolarWatch.Services.Repository;
@@ -44,14 +45,52 @@ public class CityController : ControllerBase
             return Conflict($"A city called {city.Name} already exists.");
         }
 
+        if (city.Latitude == null || city.Longitude == null)
+        {
+            return BadRequest("Latitude and Longitude must be provided.");
+        }
+
         currentCity = new City
         {
             Name = city.Name,
-            Latitude = city.Latitude,
-            Longitude = city.Longitude,
-            Country = city.Country
+            Latitude = city.Latitude.Value,
+            Longitude = city.Longitude.Value,
+            Country = city.Country!
         };
         await _cityRepository.AddAsync(currentCity);
         return Ok(currentCity);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateCity([FromBody] CityDto city)
+    {
+        var currentCity = await _cityRepository.GetByNameAsync(city.Name);
+        if (currentCity == null)
+        {
+            return NotFound($"No city called {city.Name} exists.");
+        }
+
+        currentCity.Name = city.Name ?? currentCity.Name;
+        currentCity.Latitude = city.Latitude ?? currentCity.Latitude;
+        currentCity.Longitude = city.Longitude ?? currentCity.Longitude;
+        currentCity.Country = city.Country ?? currentCity.Country;
+
+
+        await _cityRepository.UpdateAsync(currentCity);
+
+        return Ok(currentCity);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteCity([Required]string name)
+    {
+        var city = await _cityRepository.GetByNameAsync(name);
+        if (city == null)
+        {
+            return NotFound($"No city called {name} exists.");
+        }
+
+        await _cityRepository.DeleteAsync(city);
+        return NoContent();
     }
 }
