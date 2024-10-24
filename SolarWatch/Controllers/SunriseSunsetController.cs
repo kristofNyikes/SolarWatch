@@ -29,7 +29,7 @@ public class SunriseSunsetController : Controller
         _sunriseSunsetRepository  = sunriseSunsetRepository;
     }
 
-    [HttpGet("GetSunriseAndSunset"), Authorize]
+    [HttpGet("GetSunriseAndSunset"), Authorize(Roles="User, Admin")]
     public async Task<IActionResult> Get([Required] string cityName, DateTime? date)
     {
         try

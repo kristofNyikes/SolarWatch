@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SolarWatch.Contracts;
@@ -18,7 +19,7 @@ public class CityController : ControllerBase
         _cityRepository = cityRepository;
     }
 
-    [HttpGet]
+    [HttpGet, Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAllCities([Required, FromQuery] bool sunriseSunset)
     {
         IEnumerable<City> cities;
@@ -29,14 +30,14 @@ public class CityController : ControllerBase
 
         cities = await _cityRepository.GetAllAsync();
 
-    foreach (var city in cities)
+        foreach (var city in cities)
         {
             Console.WriteLine(city.Name);
         }
         return Ok(cities);
     }
 
-    [HttpPost]
+    [HttpPost, Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateCity([FromBody] CityDto city)
     {
         var currentCity = await _cityRepository.GetByNameAsync(city.Name);
@@ -61,7 +62,7 @@ public class CityController : ControllerBase
         return Ok(currentCity);
     }
 
-    [HttpPut]
+    [HttpPut, Authorize(Roles="Admin")]
     public async Task<IActionResult> UpdateCity([FromBody] CityDto city)
     {
         var currentCity = await _cityRepository.GetByNameAsync(city.Name);
@@ -70,7 +71,6 @@ public class CityController : ControllerBase
             return NotFound($"No city called {city.Name} exists.");
         }
 
-        currentCity.Name = city.Name ?? currentCity.Name;
         currentCity.Latitude = city.Latitude ?? currentCity.Latitude;
         currentCity.Longitude = city.Longitude ?? currentCity.Longitude;
         currentCity.Country = city.Country ?? currentCity.Country;
@@ -81,8 +81,8 @@ public class CityController : ControllerBase
         return Ok(currentCity);
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> DeleteCity([Required]string name)
+    [HttpDelete, Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteCity([Required, FromQuery]string name)
     {
         var city = await _cityRepository.GetByNameAsync(name);
         if (city == null)

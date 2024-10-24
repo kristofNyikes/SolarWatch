@@ -103,13 +103,19 @@ public class Program
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
-            }).AddEntityFrameworkStores<UsersContext>();
+            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<UsersContext>();
 
         builder.Services.AddScoped<ICityRepository, CityRepository>();
         builder.Services.AddScoped<ISunriseSunsetRepository, SunriseSunsetRepository>();
         builder.Services.AddScoped<ITokenService, TokenService>();
+        builder.Services.AddScoped<AuthenticationSeeder>();
 
         var app = builder.Build();
+
+        using var scope = app.Services.CreateScope();
+        var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthenticationSeeder>();
+        authenticationSeeder.AddRoles();
+        authenticationSeeder.AddAdmin();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
