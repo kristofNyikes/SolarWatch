@@ -29,8 +29,8 @@ public class SunriseSunsetController : Controller
         _sunriseSunsetRepository  = sunriseSunsetRepository;
     }
 
-    [HttpGet("GetSunriseAndSunset"), Authorize]
-    public async Task<IActionResult> Get([Required] string cityName, DateTime date)
+    [HttpGet("GetSunriseAndSunset")]
+    public async Task<IActionResult> Get([Required] string cityName, DateTime? date)
     {
         try
         {
@@ -51,10 +51,11 @@ public class SunriseSunsetController : Controller
                 await _cityRepository.AddAsync(city);
             }
 
+            //var actualDate = date ?? DateTime.Now;
             var sunriseSunsetList = await _sunriseSunsetRepository.GetAllAsync();
 
             var sunriseSunset = sunriseSunsetList
-                .FirstOrDefault(s => s.CityId == city.Id && s.Sunrise.Date == date.Date);
+                .FirstOrDefault(s => s.CityId == city.Id && s.Sunrise.Date == date);
 
             if (sunriseSunset == null)
             {
