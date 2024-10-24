@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SolarWatch.Models.City;
 using SolarWatch.Models.SunriseSunset;
@@ -28,7 +29,7 @@ public class SunriseSunsetController : Controller
         _sunriseSunsetRepository  = sunriseSunsetRepository;
     }
 
-    [HttpGet("GetSunriseAndSunset")]
+    [HttpGet("GetSunriseAndSunset"), Authorize]
     public async Task<IActionResult> Get([Required] string cityName, DateTime date)
     {
         try
@@ -80,5 +81,16 @@ public class SunriseSunsetController : Controller
             _logger.LogError(e, "Error getting sunrise/sunset data for city: {CityName}", cityName);
             return NotFound("Error getting sunrise/sunset data");
         }
+    }
+
+    [HttpGet("Cities")]
+    public async Task<IActionResult> GetAllCities()
+    {
+        var cities = await _cityRepository.GetAllAsync();
+        foreach (var city in cities)
+        {
+            Console.WriteLine(city.Name);
+        }
+        return Ok(cities);
     }
 }

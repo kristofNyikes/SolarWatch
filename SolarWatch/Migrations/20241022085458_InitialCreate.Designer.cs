@@ -12,7 +12,7 @@ using SolarWatch.Data;
 namespace SolarWatch.Migrations
 {
     [DbContext(typeof(SunriseSunsetWeatherApiContext))]
-    [Migration("20241011111804_InitialCreate")]
+    [Migration("20241022085458_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
