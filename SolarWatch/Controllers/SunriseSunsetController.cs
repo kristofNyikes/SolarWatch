@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SolarWatch.Contracts;
 using SolarWatch.Models.City;
 using SolarWatch.Models.SunriseSunset;
 using SolarWatch.Services;
@@ -9,7 +11,7 @@ using SolarWatch.Services.Repository;
 namespace SolarWatch.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api/[controller]")]
 public class SunriseSunsetController : Controller
 {
     private readonly IJsonProcessor _jsonProcessor;
@@ -75,7 +77,10 @@ public class SunriseSunsetController : Controller
                 await _sunriseSunsetRepository.AddAsync(sunriseSunset);
             }
 
-            return Ok(sunriseSunset);
+            var cityDto = new CityDto(city.Name, city.Latitude, city.Longitude, city.Country);
+                var response = new SunriseSunsetResponseDto
+                { CityId = sunriseSunset.CityId, Sunrise = sunriseSunset.Sunrise, Sunset = sunriseSunset.Sunset, City = cityDto};
+            return Ok(response);
         }
         catch (Exception e)
         {

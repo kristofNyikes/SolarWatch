@@ -105,6 +105,17 @@ public class Program
                 options.Password.RequireLowercase = false;
             }).AddRoles<IdentityRole>().AddEntityFrameworkStores<UsersContext>();
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowReactApp", policy =>
+            {
+                policy.WithOrigins("http://localhost:5173")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
+
         builder.Services.AddScoped<ICityRepository, CityRepository>();
         builder.Services.AddScoped<ISunriseSunsetRepository, SunriseSunsetRepository>();
         builder.Services.AddScoped<ITokenService, TokenService>();
@@ -125,6 +136,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
+        //app.UseCors("AllowReactApp");
 
         app.UseAuthorization();
 

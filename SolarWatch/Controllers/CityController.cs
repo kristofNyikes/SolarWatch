@@ -9,7 +9,7 @@ using SolarWatch.Services.Repository;
 namespace SolarWatch.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api/[controller]")]
 public class CityController : ControllerBase
 {
     private readonly ICityRepository _cityRepository;
