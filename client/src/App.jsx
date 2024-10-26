@@ -4,6 +4,7 @@ import Header from './Components/Header';
 
 function App() {
   const navigate = useNavigate();
+
   return (
     <>
       <Header/>

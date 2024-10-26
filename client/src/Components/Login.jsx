@@ -6,7 +6,6 @@ const Login = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("admin@admin.com");
   const [password, setPassword] = useState("admin123");
-  const [token, setToken] = useState("");
 
   const requestOptions = {
     method: 'POST',
@@ -19,15 +18,15 @@ const Login = () => {
     const response = await fetch('/api/Auth/Login', requestOptions);
     if(response.ok){
       const data = await response.json();
-      setToken(data.token);
-      console.log(data);
-      console.log(data.token);
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userName', data.userName)
+      navigate('/solar-watch')
     }
   }
 
   return (
     <div>
-      <Header></Header>
+      <Header/>
       Login
       <form action="" onSubmit={handleLogin}>
         <label htmlFor="">Email</label>
@@ -36,7 +35,6 @@ const Login = () => {
         <input type="password" name="" id="" onChange={e => setPassword(e.target.value)} value={password}/>
       <button type='submit'>login</button>
       </form>
-      <button onClick={() => navigate('/')}>home</button>
     </div>
   )
 }
