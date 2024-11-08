@@ -29,11 +29,6 @@ public class CityController : ControllerBase
         }
 
         cities = await _cityRepository.GetAllAsync();
-
-        foreach (var city in cities)
-        {
-            Console.WriteLine(city.Name);
-        }
         return Ok(cities);
     }
 

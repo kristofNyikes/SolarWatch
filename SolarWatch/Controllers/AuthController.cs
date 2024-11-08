@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SolarWatch.Contracts;
 using SolarWatch.Services.Authentication;
 
@@ -9,10 +11,17 @@ namespace SolarWatch.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authenticationService;
+    //private readonly int _cookiesExpirationMinutes;
+    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public AuthController(IAuthService authenticationService)
+    public AuthController(IAuthService authenticationService, IConfiguration configuration, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
     {
         _authenticationService = authenticationService;
+        _signInManager = signInManager;
+        _userManager = userManager;
+        //_cookiesExpirationMinutes = configuration.GetValue<int>("AuthSettings:CookiesExpirationMinutes");
+
     }
 
     [HttpPost("Register")]
@@ -42,15 +51,33 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.LoginAsync(request.Email, request.Password);
-
-        if (!result.Success)
+        var user = await _userManager.FindByEmailAsync(request.Email);
+        if (user == null)
         {
-            AddErrors(result);
+            ModelState.AddModelError("Login", "Invalid email or password");
             return BadRequest(ModelState);
         }
 
-        return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
+        var result =
+            await _signInManager.PasswordSignInAsync(user, request.Password, isPersistent: true,
+                lockoutOnFailure: false);
+
+        var role = await _userManager.GetRolesAsync(user);
+
+        if (!result.Succeeded)
+        {
+            ModelState.AddModelError("Login", "Invalid email or password");
+        }
+
+        var response = new AuthResponse(true, user.Email, user.UserName);
+        return Ok(new { Response = response, Role = role });
+    }
+
+    [HttpPost("Logout")]
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete(".AspNetCore.Identity.Application");
+        return Ok();
     }
 
     private void AddErrors(AuthResult result)
