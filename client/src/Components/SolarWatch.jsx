@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import Header from './Header';
 const SolarWatch = () => {
-  const [cityName, setCityName] = useState('');
+  const [cityName, setCityName] = useState('Budapest');
   const todaysDate = new Date().toISOString().split('T')[0];
   const [date, setDate] = useState(todaysDate);
-  const token = localStorage.getItem('authToken');
   const [sunriseSunset, setSunriseSunset] = useState(null);
 
   const requestOptions = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
+    credentials: 'include'
   };
 
   const handleFetch = async (e) => {

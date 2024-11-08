@@ -18,8 +18,8 @@ const Login = () => {
     const response = await fetch('/api/Auth/Login', requestOptions);
     if(response.ok){
       const data = await response.json();
-      localStorage.setItem('authToken', data.token);
-      localStorage.setItem('userName', data.userName)
+      localStorage.setItem("role", data.role[0]);
+      localStorage.setItem("userName", data.response.userName);
       navigate('/solar-watch')
     }
   }

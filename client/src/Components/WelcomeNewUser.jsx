@@ -6,16 +6,16 @@ const WelcomeNewUser = ({ data }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const redirectInSeconds = (sec, redirectTo) => {
+    const redirectInSecondsTo = (sec, redirectTo) => {
       setTimeout(() => {
         navigate(redirectTo);
       }, sec * 1000);
     };
 
     if (!data.userName) {
-      redirectInSeconds(3, "/");
+      redirectInSecondsTo(3, "/");
     } else {
-      redirectInSeconds(4, '/login');
+      redirectInSecondsTo(4, '/login');
     }
   }, [data, navigate]);
 

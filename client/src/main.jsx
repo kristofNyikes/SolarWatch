@@ -6,6 +6,8 @@ import Registration from './Components/Registration.jsx';
 import Login from './Components/Login.jsx';
 import SolarWatch from './Components/SolarWatch.jsx';
 import ProtectedRoute from './Components/ProtectedRoute.jsx';
+import Admin from './Components/Admin.jsx';
+import './index.css'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,12 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <SolarWatch />
       </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin-page',
+    element: (
+      <Admin/>
     ),
   },
 ]);
