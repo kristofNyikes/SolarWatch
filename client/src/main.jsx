@@ -6,7 +6,7 @@ import Registration from './Components/Registration.jsx';
 import Login from './Components/Login.jsx';
 import SolarWatch from './Components/SolarWatch.jsx';
 import ProtectedRoute from './Components/ProtectedRoute.jsx';
-import Admin from './Components/Admin.jsx';
+import Admin from './Components/admin-page/Admin.jsx';
 import './index.css'
 
 const router = createBrowserRouter([
