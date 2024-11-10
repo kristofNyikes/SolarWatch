@@ -26,6 +26,7 @@ const Header = () => {
       method: 'POST',
       credentials: 'same-origin',
     });
+    
   };
 
   return (

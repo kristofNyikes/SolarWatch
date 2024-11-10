@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Header from './Header';
+import './SolarWatch.css';
+
 const SolarWatch = () => {
   const [cityName, setCityName] = useState('Budapest');
   const todaysDate = new Date().toISOString().split('T')[0];
@@ -11,7 +13,7 @@ const SolarWatch = () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   };
 
   const handleFetch = async (e) => {
@@ -28,33 +30,33 @@ const SolarWatch = () => {
     const time = new Date(date);
     const hours = time.getHours() < 10 ? `0${time.getHours()}` : time.getHours();
     const minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
-    return `${hours}:${minutes}`
-  }
+    return `${hours}:${minutes}`;
+  };
 
   return (
     <div>
       <Header />
-      <form action="" onSubmit={handleFetch}>
-        <label htmlFor="">City</label>
-        <input type="text" name="" id="" required value={cityName} onChange={(e) => setCityName(e.target.value)} />
-        <label htmlFor="">Date</label>
+      <div className="solar-watch-main">
+        <form action="" onSubmit={handleFetch}>
+          <label htmlFor="">City</label>
+          <input type="text" name="" id="" required value={cityName} onChange={(e) => setCityName(e.target.value)} />
+          <label htmlFor="">Date</label>
 
-        <input type="date" name="" id="" max={todaysDate} value={date} onChange={(e) => setDate(e.target.value)} />
+          <input type="date" name="" id="" max={todaysDate} value={date} onChange={(e) => setDate(e.target.value)} />
 
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit">Submit</button>
+        </form>
 
-      {
-        sunriseSunset && (
-          <div>
+        {sunriseSunset && (
+          <div className='fetched-data'>
             <h2>Sunrise and Sunset Information:</h2>
             <p>City: {sunriseSunset.city.name}</p>
             <p>Sunrise: {formatTime(sunriseSunset.sunrise)}</p>
             <p>Sunset: {formatTime(sunriseSunset.sunset)}</p>
             <p>Date: {date}</p>
           </div>
-        )
-      }
+        )}
+      </div>
     </div>
   );
 };
