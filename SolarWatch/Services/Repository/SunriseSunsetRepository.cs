@@ -6,9 +6,9 @@ namespace SolarWatch.Services.Repository;
 
 public class SunriseSunsetRepository : ISunriseSunsetRepository
 {
-    private readonly SunriseSunsetWeatherApiContext _context;
+    private readonly AppDbContext _context;
 
-    public SunriseSunsetRepository(SunriseSunsetWeatherApiContext context)
+    public SunriseSunsetRepository(AppDbContext context)
     {
         _context = context;
     }
