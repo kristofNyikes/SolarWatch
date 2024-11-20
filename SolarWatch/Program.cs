@@ -32,13 +32,9 @@ public class Program
         builder.Services.AddScoped<ISunriseSunsetDataProvider, SunriseSunsetDataProvider>();
         builder.Services.AddScoped<IAuthService, AuthService>();
 
-        builder.Services.AddDbContext<SunriseSunsetWeatherApiContext>(options =>
+        builder.Services.AddDbContext<AppDbContext>(options =>
         {
-            options.UseSqlServer("Server = localhost,1433; Database = WeatherApi; User Id = sa; Password = strongSolarWatchPassword123; Encrypt = false; ");
-        });
-        builder.Services.AddDbContext<UsersContext>(options =>
-        {
-            options.UseSqlServer("Server = localhost,1433; Database = WeatherApi; User Id = sa; Password = strongSolarWatchPassword123; Encrypt = false; ");
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
 
         builder.Services.AddEndpointsApiExplorer();
@@ -101,7 +97,7 @@ public class Program
             options.Password.RequireLowercase = false;
         })
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<UsersContext>()
+            .AddEntityFrameworkStores<AppDbContext>()
             .AddSignInManager();
 
         builder.Services.AddCors(options =>

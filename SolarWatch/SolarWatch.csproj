@@ -21,4 +21,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
   </ItemGroup>
 
+	<PropertyGroup>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+	</PropertyGroup>    
 </Project>
