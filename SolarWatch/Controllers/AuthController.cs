@@ -70,7 +70,7 @@ public class AuthController : ControllerBase
         }
 
         var response = new AuthResponse(true, user.Email, user.UserName);
-        return Ok(new { Response = response, Role = role });
+        return Ok(new LoginResponse ( response, role ));
     }
 
     [HttpPost("Logout")]
