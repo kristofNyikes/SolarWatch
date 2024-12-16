@@ -23,5 +23,6 @@
 
 	<PropertyGroup>
 		<PreserveCompilationContext>true</PreserveCompilationContext>
+		<DockerfileContext>.</DockerfileContext>
 	</PropertyGroup>    
 </Project>
