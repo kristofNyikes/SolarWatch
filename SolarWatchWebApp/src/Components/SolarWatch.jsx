@@ -34,6 +34,14 @@ const SolarWatch = () => {
     return `${hours}:${minutes}`;
   };
 
+  const getDate = (date) => {
+    const time = new Date(date);
+    const year = time.getFullYear();
+    const month = time.getMonth();
+    const day = time.getDate();
+    return `${year}-${month+1}-${day}`;
+  }
+
   return (
     <div>
       <Header />
@@ -54,7 +62,7 @@ const SolarWatch = () => {
             <p>City: {sunriseSunset.city.name}</p>
             <p>Sunrise: {formatTime(sunriseSunset.sunrise)}</p>
             <p>Sunset: {formatTime(sunriseSunset.sunset)}</p>
-            <p>Date: {date}</p>
+            <p>Date: {getDate(sunriseSunset.sunrise)}</p>
           </div>
         )}
       </div>
