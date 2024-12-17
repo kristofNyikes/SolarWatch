@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Header from './Header'
 
 const Login = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate()
   const [email, setEmail] = useState("admin@admin.com");
   const [password, setPassword] = useState("admin123");
@@ -15,7 +16,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/Auth/Login', requestOptions);
+    const response = await fetch(`${BASE_URL}/api/Auth/Login`, requestOptions);
     if(response.ok){
       const data = await response.json();
       localStorage.setItem("role", data.role[0]);

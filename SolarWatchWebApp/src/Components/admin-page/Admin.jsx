@@ -7,6 +7,7 @@ import CityContent from './CityContent';
 import './AdminPage.css';
 
 const Admin = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [search, setSearch] = useState('');
   const [showSunriseSunset, setShowSunriseSunset] = useState(false);
   const [content, setContent] = useState(null);
@@ -14,7 +15,13 @@ const Admin = () => {
 
   const onSearchAllCities = async (e) => {
     e.preventDefault();
-    const response = await fetch(`/api/city?sunriseSunset=${showSunriseSunset}`);
+    const response = await fetch(`${BASE_URL}/api/City?sunriseSunset=${showSunriseSunset}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
     if (response.ok) {
       const data = await response.json();

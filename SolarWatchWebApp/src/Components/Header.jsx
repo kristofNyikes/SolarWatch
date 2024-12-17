@@ -4,6 +4,7 @@ import '../style/Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const Header = () => {
   };
 
   const logout = async () => {
-    await fetch('/api/Auth/Logout', {
+    await fetch(`${BASE_URL}/api/Auth/Logout`, {
       method: 'POST',
       credentials: 'same-origin',
     });

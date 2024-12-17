@@ -3,6 +3,7 @@ import Header from './Header';
 import './SolarWatch.css';
 
 const SolarWatch = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [cityName, setCityName] = useState('Budapest');
   const todaysDate = new Date().toISOString().split('T')[0];
   const [date, setDate] = useState(todaysDate);
@@ -18,7 +19,7 @@ const SolarWatch = () => {
 
   const handleFetch = async (e) => {
     e.preventDefault();
-    const response = await fetch(`/api/SunriseSunset/GetSunriseAndSunset?cityName=${cityName}&date=${date}`, requestOptions);
+    const response = await fetch(`${BASE_URL}/api/SunriseSunset/GetSunriseAndSunset?cityName=${cityName}&date=${date}`, requestOptions);
 
     if (response.ok) {
       const data = await response.json();
