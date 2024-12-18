@@ -8,10 +8,10 @@ public class JsonProcessor : IJsonProcessor
 {
     public City ProcessWeather(string data)
     {
-        JsonDocument json = JsonDocument.Parse(data);
-        JsonElement coord = json.RootElement[0];
+        var json = JsonDocument.Parse(data);
+        var coord = json.RootElement[0];
 
-        City weather = new City
+        var weather = new City
         {
             Latitude = coord.GetProperty("lat").GetDouble(),
             Longitude = coord.GetProperty("lon").GetDouble(),
@@ -30,15 +30,15 @@ public class JsonProcessor : IJsonProcessor
             {
                 throw new ArgumentException("Incorrect name");
             }
-            JsonDocument json = JsonDocument.Parse(data);
-            JsonElement results = json.RootElement.GetProperty("results");
+            var json = JsonDocument.Parse(data);
+            var results = json.RootElement.GetProperty("results");
 
             var sunrise = DateTime.Parse(results.GetProperty("sunrise").GetString()!, null, System.Globalization.DateTimeStyles.AssumeUniversal);
 
             var sunset = DateTime.Parse(results.GetProperty("sunset").GetString()!, null, System.Globalization.DateTimeStyles.AssumeUniversal);
 
 
-            SunriseSunset sunriseSunset = new SunriseSunset
+            var sunriseSunset = new SunriseSunset
             {
                 Sunrise = sunrise,
                 Sunset = sunset
