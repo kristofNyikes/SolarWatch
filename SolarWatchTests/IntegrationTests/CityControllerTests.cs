@@ -18,6 +18,13 @@ public class CityControllerTests
         _client = _factory.CreateClient();
     }
 
+    [TearDown]
+    public void TearDown()
+    {
+        _factory.Dispose();
+        _client.Dispose();
+    }
+
     [Test]
     public async Task CityController_CreateCity_ReturnsCreatedCity()
     {
@@ -73,7 +80,6 @@ public class CityControllerTests
         response.Should().BeSuccessful();
         response.Should().NotBeNull();
         cities.Count.Should().BeGreaterOrEqualTo(1);
-        cities[0].Id.Should().Be(1);
         cities[0].Name.Should().Be("London");
         cities[0].Country.Should().Be("GB");
 

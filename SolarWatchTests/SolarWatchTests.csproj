@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SolarWatch\SolarWatch.csproj" />
+    <ProjectReference Include="..\SolarWatchApi\SolarWatchApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
