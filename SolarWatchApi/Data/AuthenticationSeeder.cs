@@ -4,21 +4,21 @@ namespace SolarWatchApi.Data;
 
 public class AuthenticationSeeder
 {
-    private RoleManager<IdentityRole> roleManager;
-    private UserManager<IdentityUser> userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly UserManager<IdentityUser> _userManager;
 
     public AuthenticationSeeder(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
     {
-        this.roleManager = roleManager;
-        this.userManager = userManager;
+        _roleManager = roleManager;
+        _userManager = userManager;
     }
 
     public void AddRoles()
     {
-        var tAdmin = CreateAdminRole(roleManager);
+        var tAdmin = CreateAdminRole(_roleManager);
         tAdmin.Wait();
 
-        var tUser = CreateUserRole(roleManager);
+        var tUser = CreateUserRole(_roleManager);
         tUser.Wait();
     }
 
@@ -40,15 +40,15 @@ public class AuthenticationSeeder
 
     private async Task CreateAdminIfNotExists()
     {
-        var adminInDb = await userManager.FindByEmailAsync("admin@admin.com");
+        var adminInDb = await _userManager.FindByEmailAsync("admin@admin.com");
         if (adminInDb == null)
         {
             var admin = new IdentityUser { UserName = "admin", Email = "admin@admin.com" };
-            var adminCreated = await userManager.CreateAsync(admin, "admin123");
+            var adminCreated = await _userManager.CreateAsync(admin, "admin123");
 
             if (adminCreated.Succeeded)
             {
-                await userManager.AddToRoleAsync(admin, "Admin");
+                await _userManager.AddToRoleAsync(admin, "Admin");
             }
         }
     }
