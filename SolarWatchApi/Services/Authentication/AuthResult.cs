@@ -3,9 +3,7 @@
 public record AuthResult(
     bool Success,
     string Email,
-    string UserName,
-    string Token
-/*    IList<string> Roles*/)
+    string UserName)
 {
     public readonly Dictionary<string, string> ErrorMessages = new();
 }
