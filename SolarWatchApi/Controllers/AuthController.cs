@@ -10,7 +10,6 @@ namespace SolarWatchApi.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authenticationService;
-    //private readonly int _cookiesExpirationMinutes;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
 
@@ -19,7 +18,6 @@ public class AuthController : ControllerBase
         _authenticationService = authenticationService;
         _signInManager = signInManager;
         _userManager = userManager;
-        //_cookiesExpirationMinutes = configuration.GetValue<int>("AuthSettings:CookiesExpirationMinutes");
 
     }
 
