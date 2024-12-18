@@ -1,4 +1,4 @@
-﻿namespace SolarWatch.Models.City;
+﻿namespace SolarWatchApi.Models.City;
 
 public class City
 {

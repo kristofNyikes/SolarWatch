@@ -1,8 +1,8 @@
-﻿using SolarWatch.Data;
-using SolarWatch.Models.City;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SolarWatchApi.Data;
+using SolarWatchApi.Models.City;
 
-namespace SolarWatch.Services.Repository;
+namespace SolarWatchApi.Services.Repository;
 
 public class CityRepository : ICityRepository
 {

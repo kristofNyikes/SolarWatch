@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using SolarWatch.Contracts;
-using SolarWatch.Services.Authentication;
+using SolarWatchApi.Contracts;
+using SolarWatchApi.Services.Authentication;
 
-namespace SolarWatch.Controllers;
+namespace SolarWatchApi.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authenticationService;
-    //private readonly int _cookiesExpirationMinutes;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
 
@@ -20,7 +18,6 @@ public class AuthController : ControllerBase
         _authenticationService = authenticationService;
         _signInManager = signInManager;
         _userManager = userManager;
-        //_cookiesExpirationMinutes = configuration.GetValue<int>("AuthSettings:CookiesExpirationMinutes");
 
     }
 

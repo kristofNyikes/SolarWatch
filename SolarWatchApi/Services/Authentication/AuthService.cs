@@ -1,8 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace SolarWatch.Services.Authentication;
+namespace SolarWatchApi.Services.Authentication;
 
 public class AuthService : IAuthService
 {
@@ -27,7 +25,7 @@ public class AuthService : IAuthService
 
         await _userManager.AddToRoleAsync(user, role);
 
-        return new AuthResult(true, email, username, ""/*, new List<string>{"User"}*/);
+        return new AuthResult(true, email, username);
     }
 
     public async Task<AuthResult> LoginAsync(string email, string password)
@@ -48,26 +46,26 @@ public class AuthService : IAuthService
         var roles = await _userManager.GetRolesAsync(managedUser);
         var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
 
-        return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken/*, roles*/);
+        return new AuthResult(true, managedUser.Email, managedUser.UserName);
     }
 
     private static AuthResult InvalidEmail(string email)
     {
-        var result = new AuthResult(false, email, "", ""/*, null*/);
+        var result = new AuthResult(false, email, "");
         result.ErrorMessages.Add("Bad credentials", "Invalid email");
         return result;
     }
 
     private static AuthResult InvalidPassword(string email, string userName)
     {
-        var result = new AuthResult(false, email, userName, ""/*, null*/);
+        var result = new AuthResult(false, email, userName);
         result.ErrorMessages.Add("Bad credentials", "Invalid password");
         return result;
     }
 
     private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
     {
-        var authResult = new AuthResult(false, email, username, ""/*, null*/);
+        var authResult = new AuthResult(false, email, username);
 
         foreach (var error in result.Errors)
         {

@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Runtime.CompilerServices;
-
-namespace SolarWatch.Services;
+﻿namespace SolarWatchApi.Services;
 
 public class SunriseSunsetDataProvider : ISunriseSunsetDataProvider
 {
@@ -13,7 +10,7 @@ public class SunriseSunsetDataProvider : ISunriseSunsetDataProvider
     }
     public async Task<string> GetCurrent(double lat, double lng, DateTime? date = null)
     {
-        DateTime actualDate = date.HasValue ? date.Value.Date : DateTime.Now;
+        var actualDate = date?.Date ?? DateTime.Now;
         var url = $"https://api.sunrise-sunset.org/json?lat={lat}&lng={lng}&date={actualDate:yyyy-MM-dd}&formatted=0";
 
         using var client = new HttpClient();

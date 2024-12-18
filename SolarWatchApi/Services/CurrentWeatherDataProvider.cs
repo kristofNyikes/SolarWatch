@@ -1,6 +1,6 @@
 ﻿using DotNetEnv;
 
-namespace SolarWatch.Services;
+namespace SolarWatchApi.Services;
 
 public class CurrentWeatherDataProvider : ICurrentWeatherDataProvider
 {

@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SolarWatch.Contracts;
-using SolarWatch.Models.City;
-using SolarWatch.Models.SunriseSunset;
-using SolarWatch.Services;
-using SolarWatch.Services.Repository;
+using SolarWatchApi.Contracts;
+using SolarWatchApi.Models.City;
+using SolarWatchApi.Models.SunriseSunset;
+using SolarWatchApi.Services;
+using SolarWatchApi.Services.Repository;
 
-namespace SolarWatch.Controllers;
+namespace SolarWatchApi.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]

@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using SolarWatch.Contracts;
-using SolarWatch.Models.City;
-using SolarWatch.Services.Repository;
+using SolarWatchApi.Contracts;
+using SolarWatchApi.Models.City;
+using SolarWatchApi.Services.Repository;
 
-namespace SolarWatch.Controllers;
+namespace SolarWatchApi.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
