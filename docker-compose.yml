@@ -1,0 +1,99 @@
+version: '3.9'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "strongSolarWatchPassword123Docker"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  backend:
+    build:
+      context: ./SolarWatchApi
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=mssql;Database=weatherApi;User Id=sa;Password=strongSolarWatchPassword123Docker;TrustServerCertificate=true;"
+    depends_on:
+      - mssql
+
+  frontend:
+    build:
+      context: ./SolarWatchWebApp
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_BASE_URL: "https://localhost:7106"
+    depends_on:
+      - backend
+
+volumes:
+  mssql_data:
+
+
+
+# name: solarwatch-app
+
+# services:
+#   api:
+#     image: solarwatch/solarwatch-app:api-v1
+#     build:
+#       context: ./SolarWatchApi
+#       dockerfile: Dockerfile
+#     ports:
+#       - "5222:5222"
+#     depends_on:
+#       - mssql
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT=Development
+#       - ASPNETCORE_URLS=http://+:5222
+#       - ConnectionStrings__DefaultConnection=Server=mssql;Database=weatherApi;User Id=sa;Password=strongSolarWatchPassword123;Encrypt=false;
+#       - JwtSettings__ValidIssuer=apiWithAuthBackend
+#       - JwtSettings__ValidAudience=apiWithAuthBackend
+#     networks:
+#       - app-network
+    
+#   frontend:
+#     image: solarwatch/solarwatch-app:frontend-v1
+#     build:
+#       context: ./SolarWatchWebApp
+#       args:
+#         VITE_API_BASE_URL: "http://localhost:8080"
+#     ports:
+#       - "3000:80"
+#     depends_on:
+#       - api
+#     networks:
+#       - app-network
+    
+#   mssql:
+#     image: mcr.microsoft.com/mssql/server
+#     ports:
+#       - "1433:1433"
+#     environment:
+#       SA_PASSWORD: "strongSolarWatchPassword12345"
+#       ACCEPT_EULA: "Y"
+#     volumes:
+#       - mssql_data:/var/opt/mssql
+#       - ./init:/docker-entrypoint-initdb.d
+#     networks:
+#       - app-network
+    
+  
+# volumes:
+#   mssql_data:
+    
+# networks:
+#   app-network:
+#     driver: bridge

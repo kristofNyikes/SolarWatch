@@ -47,3 +47,7 @@ input {
   padding: 8px 15px;
   border: 2px solid #8a8a8a;
 }
+
+.city-element:hover {
+  cursor: pointer;
+}

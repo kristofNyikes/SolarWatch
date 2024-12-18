@@ -3,6 +3,7 @@ import Header from './Header';
 import WelcomeNewUser from './WelcomeNewUser';
 
 const Registration = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +21,7 @@ const Registration = () => {
     console.log("userName", userName);
     console.log(("password"), password);
     console.log("JSON.stringify: ", JSON.stringify({ email, userName, password }))
-    const response = await fetch('/api/Auth/Register', requestOptions);
+    const response = await fetch(`${BASE_URL}/api/Auth/Register`, requestOptions);
     if (response.ok) {
       const data = await response.json();
       console.log(data);

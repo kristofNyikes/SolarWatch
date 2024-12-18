@@ -3,6 +3,7 @@ import './AdminPage.css';
 import { useEffect, useState } from 'react';
 
 const CityContent = ({ cityContent }) => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [country, setCountry] = useState(cityContent.country);
   const [name, setName] = useState(cityContent.name);
   const [latitude, setLatitude] = useState(cityContent.latitude);
@@ -27,7 +28,7 @@ const CityContent = ({ cityContent }) => {
   }
 
   const onDelete = async () => {
-    const response = await fetch(`/api/City?name=${cityContent.name}`, {
+    const response = await fetch(`${BASE_URL}/api/City?name=${cityContent.name}`, {
       method: 'DELETE'
     })
 

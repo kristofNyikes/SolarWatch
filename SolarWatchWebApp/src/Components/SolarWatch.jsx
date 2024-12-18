@@ -3,6 +3,7 @@ import Header from './Header';
 import './SolarWatch.css';
 
 const SolarWatch = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [cityName, setCityName] = useState('Budapest');
   const todaysDate = new Date().toISOString().split('T')[0];
   const [date, setDate] = useState(todaysDate);
@@ -18,7 +19,7 @@ const SolarWatch = () => {
 
   const handleFetch = async (e) => {
     e.preventDefault();
-    const response = await fetch(`/api/SunriseSunset/GetSunriseAndSunset?cityName=${cityName}&date=${date}`, requestOptions);
+    const response = await fetch(`${BASE_URL}/api/SunriseSunset/GetSunriseAndSunset?cityName=${cityName}&date=${date}`, requestOptions);
 
     if (response.ok) {
       const data = await response.json();
@@ -32,6 +33,14 @@ const SolarWatch = () => {
     const minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
     return `${hours}:${minutes}`;
   };
+
+  const getDate = (date) => {
+    const time = new Date(date);
+    const year = time.getFullYear();
+    const month = time.getMonth();
+    const day = time.getDate();
+    return `${year}-${month+1}-${day}`;
+  }
 
   return (
     <div>
@@ -53,7 +62,7 @@ const SolarWatch = () => {
             <p>City: {sunriseSunset.city.name}</p>
             <p>Sunrise: {formatTime(sunriseSunset.sunrise)}</p>
             <p>Sunset: {formatTime(sunriseSunset.sunset)}</p>
-            <p>Date: {date}</p>
+            <p>Date: {getDate(sunriseSunset.sunrise)}</p>
           </div>
         )}
       </div>

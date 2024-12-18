@@ -43,17 +43,7 @@ public class Program
             option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
         });
 
-        //var cookiesExpirationMinutes = builder.Configuration.GetValue<int>("AuthSettings:CookiesExpirationMinutes");
-        //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-        //    .AddCookie(options =>
-        //    {
-        //        //options.LoginPath = "/api/Auth/Login";
-        //        options.ExpireTimeSpan = TimeSpan.FromDays(cookiesExpirationMinutes);
-        //        options.Cookie.HttpOnly = true;
-        //        options.SlidingExpiration = true;
-        //    });
-
-        var jwtSettings = builder.Configuration.GetSection("Authentication");
+        var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
         builder.Services.AddAuthentication(options =>
             {
@@ -69,10 +59,10 @@ public class Program
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "apiWithAuthBackend",
-                    ValidAudience = "apiWithAuthBackend",
+                    ValidIssuer = jwtSettings["ValidIssuer"],
+                    ValidAudience = jwtSettings["ValidAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes("!SomethingSecret!!SomethingSecret")
+                        Encoding.UTF8.GetBytes(jwtSettings["IssuerSigningKey"]!)
                     ),
                 };
 
@@ -83,6 +73,7 @@ public class Program
                 options.ExpireTimeSpan = TimeSpan.FromHours(1);
                 options.SlidingExpiration = true;
                 options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
 
@@ -104,7 +95,7 @@ public class Program
         {
             options.AddPolicy("AllowReactApp", policy =>
             {
-                policy.WithOrigins("http://localhost:5173")
+                policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
