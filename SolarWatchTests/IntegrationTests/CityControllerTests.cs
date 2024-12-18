@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json;
-using SolarWatch.Contracts;
-using SolarWatch.Models.City;
 using System.Text;
+using SolarWatchApi.Contracts;
+using SolarWatchApi.Models.City;
 
 namespace SolarWatchTests.IntegrationTests;
 

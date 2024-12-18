@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SolarWatch;
-using SolarWatch.Data;
-using System.Net;
+using SolarWatchApi;
+using SolarWatchApi.Data;
 
 namespace SolarWatchTests;
 

@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using FluentAssertions;
 using Newtonsoft.Json;
-using SolarWatch.Contracts;
+using SolarWatchApi.Contracts;
 
 namespace SolarWatchTests.IntegrationTests;
 
