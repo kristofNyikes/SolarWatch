@@ -1,4 +1,6 @@
-﻿namespace SolarWatch.Services;
+﻿using DotNetEnv;
+
+namespace SolarWatch.Services;
 
 public class CurrentWeatherDataProvider : ICurrentWeatherDataProvider
 {
@@ -10,8 +12,10 @@ public class CurrentWeatherDataProvider : ICurrentWeatherDataProvider
     }
     public async Task<string> GetCurrent(string cityName)
     {
+        Env.Load();
+        var apiKey = Env.GetString("API_KEY"); 
         var url =
-            $"http://api.openweathermap.org/geo/1.0/direct?q={cityName.Trim()}&appid=f1fb303fef54879412fc98f998d181b5";
+            $"http://api.openweathermap.org/geo/1.0/direct?q={cityName.Trim()}&appid={apiKey}";
 
         using var client = new HttpClient();
 
