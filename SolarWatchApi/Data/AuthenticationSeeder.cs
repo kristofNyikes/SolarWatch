@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace SolarWatch.Data;
+namespace SolarWatchApi.Data;
 
 public class AuthenticationSeeder
 {

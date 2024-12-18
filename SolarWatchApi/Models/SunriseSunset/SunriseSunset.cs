@@ -1,4 +1,4 @@
-﻿namespace SolarWatch.Models.SunriseSunset;
+﻿namespace SolarWatchApi.Models.SunriseSunset;
 
 public class SunriseSunset
 {

@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace SolarWatch.Services.Authentication;
+﻿namespace SolarWatchApi.Services.Authentication;
 
 public record AuthResult(
     bool Success,

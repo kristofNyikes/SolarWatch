@@ -1,6 +1,4 @@
-﻿using SolarWatch.Models.City;
-
-namespace SolarWatch.Contracts;
+﻿namespace SolarWatchApi.Contracts;
 
 public class SunriseSunsetResponseDto
 {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SolarWatch.Models.City;
-using SolarWatch.Models.SunriseSunset;
+using SolarWatchApi.Models.City;
+using SolarWatchApi.Models.SunriseSunset;
 
-namespace SolarWatch.Data;
+namespace SolarWatchApi.Data;
 
 public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {

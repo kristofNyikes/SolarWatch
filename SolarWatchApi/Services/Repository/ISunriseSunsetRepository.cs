@@ -1,6 +1,6 @@
-﻿using SolarWatch.Models.SunriseSunset;
+﻿using SolarWatchApi.Models.SunriseSunset;
 
-namespace SolarWatch.Services.Repository;
+namespace SolarWatchApi.Services.Repository;
 
 public interface ISunriseSunsetRepository
 {

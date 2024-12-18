@@ -1,4 +1,4 @@
-﻿namespace SolarWatch.Services;
+﻿namespace SolarWatchApi.Services;
 
 public interface ISunriseSunsetDataProvider
 {

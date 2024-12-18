@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Runtime.CompilerServices;
-
-namespace SolarWatch.Services;
+﻿namespace SolarWatchApi.Services;
 
 public class SunriseSunsetDataProvider : ISunriseSunsetDataProvider
 {

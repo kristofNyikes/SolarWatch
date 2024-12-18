@@ -1,8 +1,8 @@
-﻿using SolarWatch.Data;
-using SolarWatch.Models.SunriseSunset;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SolarWatchApi.Data;
+using SolarWatchApi.Models.SunriseSunset;
 
-namespace SolarWatch.Services.Repository;
+namespace SolarWatchApi.Services.Repository;
 
 public class SunriseSunsetRepository : ISunriseSunsetRepository
 {

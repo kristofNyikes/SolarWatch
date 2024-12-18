@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
-using SolarWatch.Models.City;
-using SolarWatch.Models.SunriseSunset;
+using SolarWatchApi.Models.City;
+using SolarWatchApi.Models.SunriseSunset;
 
-namespace SolarWatch.Services;
+namespace SolarWatchApi.Services;
 
 public class JsonProcessor : IJsonProcessor
 {

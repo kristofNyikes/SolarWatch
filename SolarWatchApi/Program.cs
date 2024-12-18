@@ -1,16 +1,15 @@
 using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SolarWatch.Data;
-using SolarWatch.Services;
-using SolarWatch.Services.Authentication;
-using SolarWatch.Services.Repository;
+using SolarWatchApi.Data;
+using SolarWatchApi.Services;
+using SolarWatchApi.Services.Authentication;
+using SolarWatchApi.Services.Repository;
 
-namespace SolarWatch;
+namespace SolarWatchApi;
 
 public class Program
 {

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using SolarWatch.Contracts;
-using SolarWatch.Services.Authentication;
+using SolarWatchApi.Contracts;
+using SolarWatchApi.Services.Authentication;
 
-namespace SolarWatch.Controllers;
+namespace SolarWatchApi.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]

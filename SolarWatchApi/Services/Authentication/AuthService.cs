@@ -1,8 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace SolarWatch.Services.Authentication;
+namespace SolarWatchApi.Services.Authentication;
 
 public class AuthService : IAuthService
 {

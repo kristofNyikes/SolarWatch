@@ -1,6 +1,6 @@
-﻿using SolarWatch.Models.City;
+﻿using SolarWatchApi.Models.City;
 
-namespace SolarWatch.Services.Repository;
+namespace SolarWatchApi.Services.Repository;
 
 public interface ICityRepository
 {
