@@ -18,6 +18,12 @@ public class CityController : ControllerBase
         _cityRepository = cityRepository;
     }
 
+    [HttpGet("proba")]
+    public IActionResult proba()
+    {
+        return Ok("proba");
+    }
+
     [HttpGet, Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAllCities([Required, FromQuery] bool sunriseSunset)
     {

@@ -68,8 +68,8 @@ public class Program
             })
             .AddCookie(IdentityConstants.ApplicationScheme, options =>
             {
-                options.LoginPath = "/login";
-                options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                options.LoginPath = "/api/Auth/Login";
+                options.ExpireTimeSpan = TimeSpan.FromHours(10000);
                 options.SlidingExpiration = true;
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SameSite = SameSiteMode.None;
@@ -94,7 +94,7 @@ public class Program
         {
             options.AddPolicy("AllowReactApp", policy =>
             {
-                policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+                policy.WithOrigins("https://localhost:3000", "https://localhost:5173")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
@@ -110,14 +110,16 @@ public class Program
 
         using var scope = app.Services.CreateScope();
         var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthenticationSeeder>();
+
+
         authenticationSeeder.AddRoles();
         authenticationSeeder.AddAdmin();
 
-        if (app.Environment.IsDevelopment())
-        {
+        //if (app.Environment.IsDevelopment())
+        //{
             app.UseSwagger();
             app.UseSwaggerUI();
-        }
+        //}
 
         app.UseHttpsRedirection();
         app.UseCors("AllowReactApp");
