@@ -27,6 +27,8 @@ services:
       ASPNETCORE_HTTPS_PORTS: 5001
       ASPNETCORE_Kestrel__Certificates__Default__Password: admin
       ASPNETCORE_Kestrel__Certificates__Default__Path: /https/aspnetapp.pfx
+    env_file:
+      - ./SolarWatchApi/.env
     volumes:
       - $HOME/.aspnet/https:/https/:ro
     depends_on:

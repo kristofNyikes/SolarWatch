@@ -115,11 +115,11 @@ public class Program
         authenticationSeeder.AddRoles();
         authenticationSeeder.AddAdmin();
 
-        //if (app.Environment.IsDevelopment())
-        //{
+        if (app.Environment.IsDevelopment())
+        {
             app.UseSwagger();
             app.UseSwaggerUI();
-        //}
+        }
 
         app.UseHttpsRedirection();
         app.UseCors("AllowReactApp");
