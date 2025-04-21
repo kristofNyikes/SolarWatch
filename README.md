@@ -1,7 +1,7 @@
 
 # SolarWatch
 
-This is a web application that allows users to retrieve sunrise and sunset data for a specific city. The application integrates ASP.NET Core for the backend, React.js for the frontend, and uses Entity Framework with MSSQL for data management. Authentication is managed with Identity Framework. 
+**SolarWatch** is a web application that allows users to retrieve sunrise and sunset data for a specific city. The application integrates ASP.NET Core for the backend, React.js for the frontend, and uses Entity Framework with MSSQL for data management. Authentication is managed with Identity Framework. 
 
 ## Features
 - Retrieve sunrise and sunset times for any city.
@@ -10,10 +10,17 @@ This is a web application that allows users to retrieve sunrise and sunset data 
 - Modern frontend built with React.js.
 
 ## Technologies Used
-- **Backend**: ASP.NET Core
-- **Database**: MSSQL with Entity Framework
-- **Frontend**: React.js
-- **Authentication**: Identity Framework
+
+- [![C# ASP.NET Core](https://img.shields.io/badge/C%23%20ASP.NET%20Core-512BD4?style=for-the-badge&logo=.net&logoColor=white)](https://dotnet.microsoft.com/)
+- [![Entity Framework](https://img.shields.io/badge/Entity%20Framework-6DB33F?style=for-the-badge&logo=ef&logoColor=white)](https://learn.microsoft.com/en-us/ef/)
+- [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+- [![Identity Framework](https://img.shields.io/badge/Identity%20Framework-35495E?style=for-the-badge&logo=auth0&logoColor=white)](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/)
+- [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+- [![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)
+- [![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/en-us/sql-server)
+- [![.NET SDK](https://img.shields.io/badge/.NET%20SDK-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/en-us/download)
+- [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/) 
 - **External API**: [OpenWeatherMap API](https://openweathermap.org/)
 
 ## Prerequisites
