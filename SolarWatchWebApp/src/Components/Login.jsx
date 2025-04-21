@@ -11,6 +11,7 @@ const Login = () => {
   const requestOptions = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
+    credentials: 'include',
     body: JSON.stringify({email, password}),
   }
 

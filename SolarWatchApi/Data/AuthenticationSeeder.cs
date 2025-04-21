@@ -6,11 +6,15 @@ public class AuthenticationSeeder
 {
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly AppDbContext _dbContext;
 
-    public AuthenticationSeeder(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+    public AuthenticationSeeder(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, AppDbContext dbContext)
     {
         _roleManager = roleManager;
         _userManager = userManager;
+        _dbContext = dbContext;
+        _dbContext.Database.EnsureDeleted();
+        _dbContext.Database.EnsureCreated();
     }
 
     public void AddRoles()
